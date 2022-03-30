@@ -96,7 +96,6 @@ def get_compound_vendors():
     print(output_df)
     
     #write table to csv
-    os.path.splitext('/home/user/somefile.txt')
     output_df.to_csv(os.path.splitext(txt_file)[0] + '_CA.csv', index = False)
     print('Results written to', os.path.splitext(txt_file)[0] + '_CA.csv.\n')
  
