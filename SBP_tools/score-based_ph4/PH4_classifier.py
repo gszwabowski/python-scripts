@@ -157,8 +157,8 @@ def main():
     selected_ph4s = selected_ph4s[['Receptor','hits_actual', 'Score Type', 'subset', 'match_features', 'quality_pred']]
     print(selected_ph4s)
     ph4_preds = X_ext_0.loc[X_ext_0['quality_pred'] == 1]
-    ph4_preds.to_csv('clusterI_ph4_preds.csv')
-    print('\nResults written to clusterI_ph4_preds.csv.\n')
+    ph4_preds.to_csv(os.path.splitext(sys.argv[1])[0] + '_clusterI_ph4_preds.csv', index = False)
+    print('\nResults written to', os.path.splitext(sys.argv[1])[0] + 'clusterI_ph4_preds.csv.\n')
             
 if __name__ == '__main__':
    main()
