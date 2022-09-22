@@ -1,12 +1,22 @@
-#This script will allow a user to import .sdf files from a list of common
-#compound names.
+#Using a .txt file containing a list of compound names copied and pasted 
+#from a MOE database, this script will allow a user to get a SMILES key
+#for each compound.
+#
+#
+#Example Input File Formatting (names will be in quotes due to MOE DB formatting):
+#
+#"N(6)-cyclohexyladenosine"
+#"cyclopentyladenosine"
+#"adenosine"
+#"CV-1808"
+#
 #
 #file should be ANSI encoded from Notepad++
 #PubChemPy can be installed using the directions at the following link:
 #https://pubchempy.readthedocs.io/en/latest/guide/gettingstarted.html
 #
 #Example command (from windows CMD while in directory with .txt):
-#python name_to_sdf.py compound_names.txt
+#python name_to_smiles.py compound_names.txt
 
 #import pubchempy, sys, and time modules
 import pubchempy as pcp
@@ -18,6 +28,9 @@ def main():
     i=1
     file = sys.argv[1]
 
+    #spacing
+    print('\n')
+    
     #strip quotes from line
     with open(file, 'r') as f, open('names.txt', 'w') as fo:
         for line in f:
@@ -38,7 +51,7 @@ def main():
     with open('names.txt', 'r') as f, open('SMILES_strings.txt', 'w') as fo:
         for line in f:
             result = pcp.get_compounds(line, 'name')
-            print('Downloading ' + line.rstrip() + ' SMILES string (' + str(i) + ' of ' + str(l) + ')\n')
+            print('Getting ' + line.rstrip() + ' SMILES string (' + str(i) + ' of ' + str(l) + ')')
             i=i+1
             if len(result) > 1:
                 result = result[0]
@@ -57,8 +70,8 @@ def main():
 
     print("Done.\n")
     if len(c_list) > 0:
-        print('SMILES strings could not be found for the following compounds:\n')
+        print('SMILES strings could not be found for the following', str(len(c_list)), 'compounds:\n')
         for name in c_list:
-            print(name + '\n')
+            print(name.rstrip())
 #call main
 main()
